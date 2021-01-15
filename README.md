@@ -18,7 +18,7 @@ Para correr el backed se requiere de Spring Boot Suite, en el siguiente enlace l
 
 Notas de la versión preliminar: 
 - Aún no se ha resuelto el mapeo de tipos de datos para el uso de fechas entre Java y MongoDB.
-- El campo id es String debido a que aún no se logra inplementar que caundo sea de tipo int o long se autoincremente
+- El campo id es String debido a que aún no se logra implementar que cuando sea de tipo int o long se autoincremente.
 
 Si tienes algún problema por favor deja un comentario en la sección "Issues" o contáctame al correo: djfibepro@gmail.com 
 
