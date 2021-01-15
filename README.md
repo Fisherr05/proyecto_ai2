@@ -2,7 +2,7 @@
 Este repositorio contiene el código desarrollado tanto en el backend como en el frontend de la funcionalidad "Nómina"
 
 # Configuración
-## Herrabientas del Backend
+## Herramientas del Backend
 Para correr el backed se requiere de Spring Tool Suite [`Spring Tool Suite`](https://spring.io/tools)
 <a href="https://ibb.co/tBFDRk2"><img src="https://i.ibb.co/Y2whgYd/image.png" alt="spt-page" border="0"></a><br>
 - Se decargará un archivo .jar <br>
