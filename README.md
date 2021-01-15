@@ -21,21 +21,21 @@ Para correr el backed se requiere de Spring Tool Suite [`Spring Tool Suite`](htt
 - Seleccionan "Specify location..." , buscan donde se encuentra la carpeta "sts-*" que anteriormente se creó y la selecionan, dan click en el boton "Select" <br>
 <a href="https://ibb.co/PNL6wGZ"><img src="https://i.ibb.co/xDk7JqS/image.png" alt="lombok-select" border="0"></a><br>
 - Dan click en el botón "Install/Update" luego click en "Quit Installer" <br>
-<a href="https://ibb.co/XSBQbf3"><img src="https://i.ibb.co/Wg9h6NP/image.png" alt="lombok-select" border="0"></a><br>
+<a href="https://ibb.co/XSBQbf3"><img src="https://i.ibb.co/Wg9h6NP/image.png" alt="lombok-quit" border="0"></a><br>
 - Asegurarse de que "mongo" y "mongod" ya estén en funcionamiento <br>
 <a href="https://ibb.co/QnWHvhN"><img src="https://i.ibb.co/d6Np4X2/image.png" alt="mongod-launch" border="0"></a>
-<a href="https://ibb.co/hmXQJsQ"><img src="https://i.ibb.co/W2D84n8/image.png" alt="mongod-launch" border="0"></a>
+<a href="https://ibb.co/hmXQJsQ"><img src="https://i.ibb.co/W2D84n8/image.png" alt="mongo-launch" border="0"></a>
 - En la consola de "mongo" usar el siguiente comando para crear la base de datos:
 ```bash
 use nominaDB
 ```
-Puedes escoger otro nombre pero debes cambiarlo también en el archivo "application.yml" que se encuentra en "src\main\resources" ).
-**NOTA: La aplicación funciona con una base de datos vacía previamente creada, las tablas se crean automáticamente en esa base la primera vez que se ejecute el proyecto
+Puedes escoger otro nombre pero debes cambiarlo también en el archivo "application.yml" que se encuentra en "src\main\resources".
+**NOTA: La aplicación funciona con una base de datos vacía previamente creada, las tablas se crean automáticamente en esa base la primera vez que se ejecute el proyecto***
 - Listo, ya pueden correr el proyecto desde el Spring Tool Suite
-- Puedes acceder a la documentación de los servicios y verificar su funcionamiento en: http://localhost:8081/api-doc.html
+- Puedes acceder a la documentación de los servicios y verificar su funcionamiento en: http://localhost:8081/api-doc.html <br>
+<a href="https://ibb.co/C0hzC7F"><img src="https://i.ibb.co/mz6GZq7/image.png" alt="swagger-ui" border="0"></a>
 
-
-Notas de la versión preliminar: 
+## Notas de la versión preliminar: 
 - Aún no se ha resuelto el mapeo de tipos de datos para el uso de fechas entre Java y MongoDB.
 - El campo id es String debido a que aún no se logra implementar que cuando sea de tipo int o long se autoincremente.
 
