@@ -30,7 +30,7 @@ Para correr el backed se requiere de Spring Tool Suite [`Spring Tool Suite`](htt
 use nominaDB
 ```
 Puedes escoger otro nombre pero debes cambiarlo también en el archivo "application.yml" que se encuentra en "src\main\resources".<br><br>
-**NOTA: La aplicación funciona con una base de datos vacía previamente creada, las tablas se crean automáticamente en esa base la primera vez que se ejecute el proyecto***
+**NOTA: La aplicación funciona con una base de datos vacía previamente creada, las tablas se crean automáticamente en esa base la primera vez que se ejecute el proyecto**
 - Listo, ya pueden correr el proyecto desde el Spring Tool Suite
 - Puedes acceder a la documentación de los servicios y verificar su funcionamiento en: http://localhost:8081/api-doc.html <br>
 <a href="https://ibb.co/C0hzC7F"><img src="https://i.ibb.co/mz6GZq7/image.png" alt="swagger-ui" border="0"></a>
