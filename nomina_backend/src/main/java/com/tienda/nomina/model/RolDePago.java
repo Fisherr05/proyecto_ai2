@@ -12,6 +12,7 @@ package com.tienda.nomina.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.Data;
 
@@ -22,8 +23,13 @@ public class RolDePago {
 	@Id
 	private String idPago;
 	
+	@Field
 	private String fechaRolDePago;
+	
+	@Field
 	private Double sueldo;
+	
+	@Field
 	private int horasExtras;
 	
 }

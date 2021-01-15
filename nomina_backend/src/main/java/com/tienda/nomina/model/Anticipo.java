@@ -12,6 +12,7 @@ package com.tienda.nomina.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.Data;
 @Data
@@ -21,7 +22,10 @@ public class Anticipo {
 	@Id
 	private String idAnticipo;
 	
+	@Field
 	private String fechaAnticipo;
+	
+	@Field
 	private Double valorAnticipo;
 
 	
