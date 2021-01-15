@@ -15,5 +15,10 @@ Para correr el backed se requiere de Spring Boot Suite, en el siguiente enlace l
 - Listo, ya pueden correr el proyecto desde el Spring Boot Suite
 - Puedes acceder a la documentación de los servición y verificar su funcionamiento en: http://localhost:8081/api-doc.html
 
+
+Notas de la versión preliminar: 
+- Aún no se ha resuelto el mapeo de tipos de datos para el uso de fechas entre Java y MongoDB.
+- El campo id es String debido a que aún no se logra inplementar que caundo sea de tipo int o long se autoincremente
+
 Si tienes algún problema por favor deja un comentario en la sección "Issues".
 
