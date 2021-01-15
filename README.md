@@ -1,18 +1,36 @@
 # proyecto_ai2
 Este repositorio contiene el código desarrollado tanto en el backend como en el frontend de la funcionalidad "Nómina"
 
-Para correr el backed se requiere de Spring Tool Suite, en el siguiente enlace lo pueden descargar:
-  https://spring.io/tools
-- Se decargará un archivo .jar, lo abren y se lanzará una pequeña ventana con una barra de progreso (dejen que se cierre solo).
-- Deben ir a su carpeta de descargas y encontraran una carpeta cque comiensa con el combre "sts-*", lo abren y encontrarán un ejecutable con ícono verde, crea un acceso directo en   tu escritorio (todavía no lo abras).
-- Descargar la aplicación lombok:
-  https://projectlombok.org/download
+# Configuración
+## Herrabientas del Backend
+Para correr el backed se requiere de Spring Tool Suite [`Spring Tool Suite`](https://spring.io/tools)
+<a href="https://ibb.co/tBFDRk2"><img src="https://i.ibb.co/Y2whgYd/image.png" alt="spt-page" border="0"></a>
+- Se decargará un archivo .jar
+<a href="https://ibb.co/T25hr7B"><img src="https://i.ibb.co/r0JyvzG/image.png" alt="spt-jar" border="0"></a>
+- La abren y se lanzará una pequeña ventana con una barra de progreso (dejen que se cierre solo).
+<a href="https://ibb.co/MpszTq9"><img src="https://i.ibb.co/S0PkTqJ/image.png" alt="spt-progreso" border="0"></a>
+- Aparecerá una carpeta nombre "sts-*"
+<a href="https://ibb.co/X3WY9X7"><img src="https://i.ibb.co/LJ0NMSx/image.png" alt="spt-carpeta" border="0"></a>
+- La abren y encontrarán un ejecutable con ícono verde
+<a href="https://ibb.co/3fqmgpg"><img src="https://i.ibb.co/TKSM949/image.png" alt="spt-exe" border="0"></a>
+- Crea un acceso directo en tu escritorio (todavía no lo abras).
+<a href="https://ibb.co/WD7rD8f"><img src="https://i.ibb.co/3fVxf6c/image.png" alt="spt-shortcut" border="0"></a>
+- Descargar la aplicación [`lombok`](https://projectlombok.org/download)
 - Lo abren y puede que les salte una ventana en la que tienen que dar a aceptar.
+<a href="https://ibb.co/7gqRNcy"><img src="https://i.ibb.co/HNjxpvg/image.png" alt="lombok-installer" border="0"></a>
 - Seleccionan "Specify location..." , buscan donde se encuentra la carpeta "sts-*" que anteriormente se creó y la selecionan, dan click en el boton "Select"
+<a href="https://ibb.co/PNL6wGZ"><img src="https://i.ibb.co/xDk7JqS/image.png" alt="lombok-select" border="0"></a>
 - Dan click en el botón "Install/Update" luego click en "Quit Installer"
+<a href="https://ibb.co/XSBQbf3"><img src="https://i.ibb.co/Wg9h6NP/image.png" alt="lombok-select" border="0"></a>
 - Asegurarse de que "mongo" y "mongod" ya estén en funcionamiento
-- En la consola de "mongo" usar el siguiente comando para crear la base de datos: "use nominaDB" (Puedes escoger otro nombre pero debes cambiarlo también en el archivo      "application.yml" que se encuentra en "src\main\resources" ).
-- -- La aplicación funciona con una base de datos vacía previamente creada, las tablas se crean automáticamente en esa base -- -
+<a href="https://ibb.co/QnWHvhN"><https://i.ibb.co/d6Np4X2/image.png" alt="mongod-launch" border="0"></a>
+<a href="https://ibb.co/hmXQJsQ"><https://i.ibb.co/W2D84n8/image.png" alt="mongod-launch" border="0"></a>
+- En la consola de "mongo" usar el siguiente comando para crear la base de datos:
+```bash
+use nominaDB
+```
+Puedes escoger otro nombre pero debes cambiarlo también en el archivo "application.yml" que se encuentra en "src\main\resources" ).
+**NOTA: La aplicación funciona con una base de datos vacía previamente creada, las tablas se crean automáticamente en esa base la primera vez que se ejecute el proyecto
 - Listo, ya pueden correr el proyecto desde el Spring Tool Suite
 - Puedes acceder a la documentación de los servicios y verificar su funcionamiento en: http://localhost:8081/api-doc.html
 
