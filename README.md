@@ -1,5 +1,5 @@
 # proyecto_ai2
-Este repositorio contiene el código desarrollado tanto en el backend como en el frontend la funcionalidad de Nómina
+Este repositorio contiene el código desarrollado tanto en el backend como en el frontend de la funcionalidad "Nómina"
 
 Para correr el backed se requiere de Spring Boot Suite, en el siguiente enlace lo pueden descargar:
   https://spring.io/tools
