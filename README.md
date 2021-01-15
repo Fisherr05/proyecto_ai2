@@ -7,7 +7,7 @@ Para correr el backed se requiere de Spring Tool Suite [`Spring Tool Suite`](htt
 <a href="https://ibb.co/tBFDRk2"><img src="https://i.ibb.co/Y2whgYd/image.png" alt="spt-page" border="0"></a><br>
 - Se decargará un archivo .jar <br>
 <a href="https://ibb.co/T25hr7B"><img src="https://i.ibb.co/r0JyvzG/image.png" alt="spt-jar" border="0"></a><br>
-- La abren y se lanzará una pequeña ventana con una barra de progreso (dejen que se cierre solo). <br>
+- Lo abren y se lanzará una pequeña ventana con una barra de progreso (dejen que se cierre solo). <br>
 <a href="https://ibb.co/MpszTq9"><img src="https://i.ibb.co/S0PkTqJ/image.png" alt="spt-progreso" border="0"></a><br>
 - Aparecerá una carpeta nombre "sts-*" <br>
 <a href="https://ibb.co/X3WY9X7"><img src="https://i.ibb.co/LJ0NMSx/image.png" alt="spt-carpeta" border="0"></a><br>
