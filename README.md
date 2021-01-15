@@ -3,7 +3,7 @@ Este repositorio contiene el código desarrollado tanto en el backend como en el
 
 # Configuración
 ## Herramientas del Backend
-Para correr el backed se requiere de Spring Tool Suite [`Spring Tool Suite`](https://spring.io/tools)
+Para correr el backed se requiere de [`Spring Tool Suite`](https://spring.io/tools)
 <a href="https://ibb.co/tBFDRk2"><img src="https://i.ibb.co/Y2whgYd/image.png" alt="spt-page" border="0"></a><br>
 - Se decargará un archivo .jar <br>
 <a href="https://ibb.co/T25hr7B"><img src="https://i.ibb.co/r0JyvzG/image.png" alt="spt-jar" border="0"></a><br>
