@@ -10,9 +10,12 @@
 																*/
 package com.tienda.nomina.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 @Data
@@ -23,7 +26,8 @@ public class Anticipo {
 	private String idAnticipo;
 	
 	@Field
-	private String fechaAnticipo;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private Date fechaAnticipo = new Date();
 	
 	@Field
 	private Double valorAnticipo;

@@ -10,9 +10,12 @@
 																*/
 package com.tienda.nomina.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -24,7 +27,8 @@ public class RolDePago {
 	private String idPago;
 	
 	@Field
-	private String fechaRolDePago;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private Date fechaRolDePago = new Date();
 	
 	@Field
 	private Double sueldo;

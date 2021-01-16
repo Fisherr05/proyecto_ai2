@@ -36,7 +36,6 @@ Puedes escoger otro nombre pero debes cambiarlo también en el archivo "applicat
 <a href="https://ibb.co/C0hzC7F"><img src="https://i.ibb.co/mz6GZq7/image.png" alt="swagger-ui" border="0"></a>
 
 ## Notas de la versión preliminar: 
-- Aún no se ha resuelto el mapeo de tipos de datos para el uso de fechas entre Java y MongoDB.
 - El campo id es String debido a que aún no se logra implementar que cuando sea de tipo int o long se autoincremente.
 
 Si tienes algún problema por favor deja un comentario en la sección "Issues" o contáctame al correo: djfibepro@gmail.com 
