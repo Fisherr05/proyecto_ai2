@@ -10,6 +10,7 @@
 																*/
 package com.tienda.nomina.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -22,6 +23,7 @@ import com.tienda.nomina.model.Anticipo;
 public interface AnticipoRepository extends MongoRepository<Anticipo, String> {
 
 	Optional <Anticipo> findByIdAnticipo(String idAnticipo);
+	List <Anticipo> findByCedulaPersonal(String cedulaPersonal);
 	
 	void deleteByIdAnticipo(String idAnticipo);
 	

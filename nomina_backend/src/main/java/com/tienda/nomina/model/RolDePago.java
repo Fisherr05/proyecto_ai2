@@ -26,6 +26,9 @@ public class RolDePago {
 	@Id
 	private String idPago;
 	
+	@Field 
+	private String cedulaPersonal;
+	
 	@Field
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date fechaRolDePago = new Date();
@@ -35,5 +38,7 @@ public class RolDePago {
 	
 	@Field
 	private int horasExtras;
+	
+			
 	
 }

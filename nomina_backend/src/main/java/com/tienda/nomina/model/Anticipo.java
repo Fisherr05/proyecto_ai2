@@ -26,6 +26,9 @@ public class Anticipo {
 	private String idAnticipo;
 	
 	@Field
+	private String cedulaPersonal;
+	
+	@Field
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date fechaAnticipo = new Date();
 	

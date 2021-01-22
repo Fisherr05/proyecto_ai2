@@ -48,10 +48,16 @@ public class RolDePagoController {
 
 
 	@PostMapping("/rolDePago")
-	public ResponseEntity<RolDePago> createRolDePago(@RequestBody RolDePago rolDePago){
+	public ResponseEntity<RolDePago> createRolDePago(@RequestBody RolDePago rolDePago) throws RecordNotFoundException{
 		service.createRolDePago(rolDePago);
 		return new ResponseEntity<RolDePago>(rolDePago, new HttpHeaders(), HttpStatus.OK);
 	}
+	
+	/*@GetMapping("/rolDePagoTotal/{id}")
+	public Double calcularRolPago(@PathVariable("id") String cedulaPersonal) throws RecordNotFoundException {
+		Double pagoTotal = service.calcularRolPago(cedulaPersonal);
+		return (pagoTotal);
+	}*/
 
 	@PutMapping("/rolDePago")
 	public ResponseEntity<RolDePago> updateRolDePago(@RequestBody RolDePago rolDePago) throws RecordNotFoundException{

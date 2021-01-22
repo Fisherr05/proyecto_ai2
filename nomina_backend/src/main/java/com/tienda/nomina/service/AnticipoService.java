@@ -43,6 +43,15 @@ public class AnticipoService {
 			throw new RecordNotFoundException("Record does not exist for the given Id");
 		}
 	}
+	
+	public List <Anticipo> findByCedulaPersonal(String cedulaPersonal) throws RecordNotFoundException{
+		List<Anticipo> anticipo = repo.findByCedulaPersonal(cedulaPersonal);
+		if(anticipo.size() > 0) {
+			return anticipo;
+		} else {
+			return new ArrayList<Anticipo>();
+		}
+	}
 
 	public Anticipo createAnticipo(Anticipo anticipo){
 		return repo.save(anticipo);
