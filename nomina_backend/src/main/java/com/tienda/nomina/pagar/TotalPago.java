@@ -23,15 +23,24 @@ public class TotalPago {
 	private String cedulaPersonal;
 	
 	@Field
-	private Double decimo;
+	private Integer diasLaborados;
 	
 	@Field
-	private Double horasExtras;
+	private Double horasExtras50;
+	
+	@Field
+	private Double horasExtras100;
 	
 	@Field
 	private Double bono;
 	
 	@Field
-	private Double anticipo;
+	private Double descuento;
+	
+	@Field
+	private Double multas;
+	
+	@Field
+	private Double prestamo;
 	
 }

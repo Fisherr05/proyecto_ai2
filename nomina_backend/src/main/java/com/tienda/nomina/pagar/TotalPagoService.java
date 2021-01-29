@@ -12,6 +12,7 @@ package com.tienda.nomina.pagar;
 
 import org.springframework.stereotype.Service;
 
+import com.tienda.nomina.logica.CLRolDePago;
 import com.tienda.nomina.pagar.RecordNotFoundException;
 import com.tienda.nomina.pagar.TotalPago;
 import com.tienda.nomina.pagar.TotalPagoRepository;
@@ -46,6 +47,25 @@ public class TotalPagoService {
 	}
 
 	public TotalPago createTotalPago(TotalPago totalPago){
+		
+		/*Aquí quiero intereactuar con dos tablas, con la de personal para verificar que existe alguién con esa cédula
+		  y tomar su fecha ingreso para compararla con la actual y verificar si recibe el decimo cuarto sueldo.
+		  También se traen los datos de anticipos de una persona según su número de cédula, verificar los anticipos hechos en el mes que se va a realizar el
+		  Rol de pago.
+		  Los datos que se obtienen este servicio se los ingresa en el contructor de la clase que tiene las funciones con los cálculos
+		  A través de los métodos de esta clase que retornan valores, éstos valores se guardaran en la tabla Rol de Pagos
+		 */
+		/*
+		CLRolDePago rolDePago;
+		if(meses>=12) {
+			CLRolDePago rolDePago= new CLRolDePago(totalPago.getDiasLaborados(),totalPago.getHorasExtras50(),totalPago.getHorasExtras100(),
+					totalPago.getBono(),(----Anticipo----), totalPago.getDescuento(),totalPago.getMultas(),(----Salario----),(----comision----), (----totalAnual----) );
+		}else {
+			CLRolDePago rolDePago= new CLRolDePago(totalPago.getDiasLaborados(),totalPago.getHorasExtras50(),totalPago.getHorasExtras100(),
+					totalPago.getBono(),(----Anticipo----), totalPago.getDescuento(),totalPago.getMultas(),(----Salario----),(----comision----) );
+		}
+		rolDePago.TotalDelMes();
+		*/
 		return repo.save(totalPago);
 	}
 
