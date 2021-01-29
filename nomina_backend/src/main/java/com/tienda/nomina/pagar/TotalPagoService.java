@@ -64,7 +64,7 @@ public class TotalPagoService {
 			CLRolDePago rolDePago= new CLRolDePago(totalPago.getDiasLaborados(),totalPago.getHorasExtras50(),totalPago.getHorasExtras100(),
 					totalPago.getBono(),(----Anticipo----), totalPago.getDescuento(),totalPago.getMultas(),(----Salario----),(----comision----) );
 		}
-		rolDePago.TotalDelMes();
+		=rolDePago.TotalDelMes();
 		*/
 		return repo.save(totalPago);
 	}
