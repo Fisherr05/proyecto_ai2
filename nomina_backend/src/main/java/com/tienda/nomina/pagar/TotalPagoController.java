@@ -40,8 +40,8 @@ public class TotalPagoController {
 		return new ResponseEntity<List<TotalPago>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@GetMapping("/totalPago/{id}")
-	public ResponseEntity<TotalPago> getTotalPagoByCedulaPersonal(@PathVariable("id") String cedulaPersonal) throws RecordNotFoundException {
+	@GetMapping("/totalPago/{cedula}")
+	public ResponseEntity<TotalPago> getTotalPagoByCedulaPersonal(@PathVariable("cedula") String cedulaPersonal) throws RecordNotFoundException {
 		TotalPago entity = service.findByCedulaPersonal(cedulaPersonal);
 		return new ResponseEntity<TotalPago>(entity, new HttpHeaders(), HttpStatus.OK);
 	}

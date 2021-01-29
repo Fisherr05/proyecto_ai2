@@ -72,6 +72,7 @@ public class RolDePagoService {
 		}
 	}
 	
+
 	
 	
 	/*public Double calcularRolPago(String cedula) throws RecordNotFoundException  {

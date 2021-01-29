@@ -28,6 +28,8 @@ public interface RolDePagoRepository extends MongoRepository<RolDePago, String> 
 	
 	List <RolDePago> findByCedulaPersonal(String cedulaPersonal);
 	
+	
+	
 	//Double calcularRolPago(String cedula);
 	
 	

@@ -11,6 +11,7 @@
 package com.tienda.nomina.controller;
 
 import com.tienda.nomina.exception.RecordNotFoundException;
+import com.tienda.nomina.model.Anticipo;
 import com.tienda.nomina.model.RolDePago;
 import com.tienda.nomina.service.RolDePagoService;
 
@@ -44,8 +45,14 @@ public class RolDePagoController {
 		RolDePago entity = service.findByIdPago(idPago);
 		return new ResponseEntity<RolDePago>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
+	
+	/*@GetMapping("/rolDePago/{cedula}")
+	public ResponseEntity<List<RolD9ePago>> getRolDePagoByCedulaPersonal(@PathVariable("cedula") String cedulaPersonal) throws RecordNotFoundException {
+		List<RolDePago> entity = service.findByCedulaPersonal(cedulaPersonal);
+		return new ResponseEntity<List<RolDePago>>(entity, new HttpHeaders(), HttpStatus.OK);
+	}
 
-
+*/
 
 	@PostMapping("/rolDePago")
 	public ResponseEntity<RolDePago> createRolDePago(@RequestBody RolDePago rolDePago) throws RecordNotFoundException{

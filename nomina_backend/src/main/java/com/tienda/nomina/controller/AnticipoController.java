@@ -45,8 +45,8 @@ public class AnticipoController {
 		return new ResponseEntity<Anticipo>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/anticipo/cedula/{id}")
-	public ResponseEntity<List<Anticipo>> getAnticipoByCedulaPersonal(@PathVariable("id") String cedulaPersonal) throws RecordNotFoundException {
+	@GetMapping("/anticipo/{cedula}")
+	public ResponseEntity<List<Anticipo>> getAnticipoByCedulaPersonal(@PathVariable("cedula") String cedulaPersonal) throws RecordNotFoundException {
 		List<Anticipo> entity = service.findByCedulaPersonal(cedulaPersonal);
 		return new ResponseEntity<List<Anticipo>>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
