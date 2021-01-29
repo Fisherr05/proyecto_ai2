@@ -52,6 +52,16 @@ public class NominaApplication {
 		System.out.println("/nomina/cargo");
 		System.out.println("DELETE");
 		System.out.println("/nomina/cargo/{id}");
+		System.out.println("Active resources for TotalPago entity");
+		System.out.println("GET");
+		System.out.println("/api/calculo/totalPago");
+		System.out.println("/api/calculo/totalPago/{id}");
+		System.out.println("POST");
+		System.out.println("/api/calculo/totalPago");
+		System.out.println("PUT");
+		System.out.println("/api/calculo/totalPago");
+		System.out.println("DELETE");
+		System.out.println("/api/calculo/totalPago/{id}");
 	}
 	
 	@PostConstruct

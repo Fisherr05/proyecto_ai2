@@ -11,6 +11,7 @@
 package com.tienda.nomina.service;
 
 import com.tienda.nomina.exception.RecordNotFoundException;
+import com.tienda.nomina.model.Anticipo;
 import com.tienda.nomina.model.RolDePago;
 import com.tienda.nomina.repository.RolDePagoRepository;
 
@@ -25,6 +26,7 @@ public class RolDePagoService {
 
 	@Autowired
 	RolDePagoRepository repo;
+	AnticipoService Ant;
 
 	public List<RolDePago> getAll(){
 		List<RolDePago> rolDePagoList = repo.findAll();
@@ -44,7 +46,9 @@ public class RolDePagoService {
 		}
 	}
 
-	public RolDePago createRolDePago(RolDePago rolDePago){
+	public RolDePago createRolDePago(RolDePago rolDePago) throws RecordNotFoundException{
+		//List<Anticipo> Anticipo = Ant.findByCedulaPersonal(cedulaPersonal);
+		
 		return repo.save(rolDePago);
 	}
 
@@ -57,6 +61,41 @@ public class RolDePagoService {
 			throw new RecordNotFoundException("Record does not exist for the given Id");
 		}
 	}
+	
+	
+	public List <RolDePago> findByCedulaPersonal(String cedulaPersonal) throws RecordNotFoundException{
+		List<RolDePago> rol = repo.findByCedulaPersonal(cedulaPersonal);
+		if(rol.size() > 0) {
+			return rol;
+		} else {
+			return new ArrayList<RolDePago>();
+		}
+	}
+	
+
+	
+	
+	/*public Double calcularRolPago(String cedula) throws RecordNotFoundException  {
+		
+		List<RolDePago> rol = repo.findByCedulaPersonal(cedula);
+		
+		Double sueldo=0.0;
+		Double bono=0.0;
+		Double decimo=0.0;
+		Double horasExtras=0.0;
+		
+		for (int i=0; i<rol.size(); i++) {
+
+			sueldo = rol.get(i).getSueldo();
+			bono = 120.0;
+			decimo = sueldo;
+			horasExtras = rol.get(i).getHorasExtras()* 5.0;
+			
+		}
+		
+		return sueldo+bono+decimo+horasExtras;
+		
+	}*/
 
 	public void deleteRolDePagoByIdPago(String idPago) throws RecordNotFoundException{
 		Optional<RolDePago> rolDePago = repo.findByIdPago(idPago);

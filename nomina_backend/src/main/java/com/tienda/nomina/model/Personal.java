@@ -46,4 +46,7 @@ public class Personal {
 	@Field
 	private String telefono;
 	
+	@Field
+	private Double salario;
+	
 }

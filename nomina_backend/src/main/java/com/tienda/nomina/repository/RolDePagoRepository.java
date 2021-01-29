@@ -13,8 +13,10 @@ package com.tienda.nomina.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import com.tienda.nomina.model.Anticipo;
 import com.tienda.nomina.model.RolDePago;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -23,5 +25,13 @@ public interface RolDePagoRepository extends MongoRepository<RolDePago, String> 
 	Optional <RolDePago> findByIdPago(String idPago);
 	
 	void deleteByIdPago(String idPago);
+	
+	List <RolDePago> findByCedulaPersonal(String cedulaPersonal);
+	
+	
+	
+	//Double calcularRolPago(String cedula);
+	
+	
 	
 }

@@ -26,7 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
+//import org.springframework.web.bind.annotation.DeleteMapping;
 @RestController
 @RequestMapping("/nomina")
 public class AnticipoController {
@@ -44,8 +44,12 @@ public class AnticipoController {
 		Anticipo entity = service.findByIdAnticipo(idAnticipo);
 		return new ResponseEntity<Anticipo>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
-
-
+	
+	@GetMapping("/anticipo/{cedula}")
+	public ResponseEntity<List<Anticipo>> getAnticipoByCedulaPersonal(@PathVariable("cedula") String cedulaPersonal) throws RecordNotFoundException {
+		List<Anticipo> entity = service.findByCedulaPersonal(cedulaPersonal);
+		return new ResponseEntity<List<Anticipo>>(entity, new HttpHeaders(), HttpStatus.OK);
+	}
 
 	@PostMapping("/anticipo")
 	public ResponseEntity<Anticipo> createAnticipo(@RequestBody Anticipo anticipo){
@@ -59,9 +63,9 @@ public class AnticipoController {
 		return new ResponseEntity<Anticipo>(anticipo, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/anticipo/{id}")
+	/*@DeleteMapping("/anticipo/{id}")
 	public HttpStatus deleteAnticipoByIdAnticipo(@PathVariable("id") String idAnticipo) throws RecordNotFoundException {
 		service.deleteAnticipoByIdAnticipo(idAnticipo);
 		return HttpStatus.OK;
-	}
+	}*/
 }				
