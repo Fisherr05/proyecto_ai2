@@ -12,9 +12,10 @@ const Container = (props) => (
         </Head>
         <Navigation>
             <div className="container p-4">
-                {props.children}
+
             </div>
         </Navigation>
+        {props.children}
     </div>
 )
 
