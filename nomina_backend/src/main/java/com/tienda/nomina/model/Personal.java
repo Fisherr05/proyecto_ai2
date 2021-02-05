@@ -10,12 +10,12 @@
 																*/
 package com.tienda.nomina.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
-
-
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,9 +33,11 @@ public class Personal {
 	@Field
 	private String apellidoPersonal;
 	@Field
-	private String fechaIngreso;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private Date fechaIngreso = new Date();
 	@Field
-	private String fechaSalida;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private Date fechaSalida = new Date();
 	@Field
 	private String direccion;
 	@Field

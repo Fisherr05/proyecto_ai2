@@ -10,12 +10,10 @@ const Container = (props) => (
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css">
             </link>
         </Head>
-        <Navigation>
-            <div className="container p-4">
-
-            </div>
-        </Navigation>
-        {props.children}
+        <Navigation/>
+        <div className="container p-2">
+            {props.children}
+        </div> 
     </div>
 )
 
