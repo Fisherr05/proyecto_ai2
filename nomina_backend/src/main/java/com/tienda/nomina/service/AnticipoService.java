@@ -12,7 +12,9 @@ package com.tienda.nomina.service;
 
 import com.tienda.nomina.exception.RecordNotFoundException;
 import com.tienda.nomina.model.Anticipo;
+import com.tienda.nomina.model.RolDePago;
 import com.tienda.nomina.repository.AnticipoRepository;
+import com.tienda.nomina.repository.RolDePagoRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class AnticipoService {
 
 	@Autowired
 	AnticipoRepository repo;
+	
+	@Autowired
+	RolDePagoRepository rol;
 
 	public List<Anticipo> getAll(){
 		List<Anticipo> anticipoList = repo.findAll();
@@ -65,6 +70,16 @@ public class AnticipoService {
 		} else {
 			throw new RecordNotFoundException("Record does not exist for the given Id");
 		}
-	}		
-
+	}	
+	
+	public Double total(String idAnticipo, String idPersonal) {
+		
+		Optional<RolDePago> rolpago = rol.findByIdPago(idPersonal);
+		Optional<Anticipo> anticipo = repo.findByIdAnticipo(idAnticipo);
+		
+		return anticipo.get().ValorTotal(rolpago.get().getSueldo());
+	}
+	
+	
+	
 }

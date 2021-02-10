@@ -11,6 +11,7 @@
 package com.tienda.nomina.service;
 
 import com.tienda.nomina.exception.RecordNotFoundException;
+//import com.tienda.nomina.model.Anticipo;
 import com.tienda.nomina.model.RolDePago;
 import com.tienda.nomina.repository.RolDePagoRepository;
 
@@ -40,7 +41,7 @@ public class RolDePagoService {
 		if(rolDePago.isPresent()) {
 			return rolDePago.get();
 		} else {
-			throw new RecordNotFoundException("Record does not exist for the given Id");
+			throw new RecordNotFoundException(" does not exist for the given Id");
 		}
 	}
 
@@ -54,7 +55,7 @@ public class RolDePagoService {
 		if(rolDePagoTemp.isPresent()){
 			return repo.save(rolDePago);
 		} else {
-			throw new RecordNotFoundException("Record does not exist for the given Id");
+			throw new RecordNotFoundException(" does not exist for the given Id");
 		}
 	}
 
@@ -63,8 +64,80 @@ public class RolDePagoService {
 		if(rolDePago.isPresent()) {
 		repo.deleteByIdPago(idPago);
 		} else {
-			throw new RecordNotFoundException("Record does not exist for the given Id");
+			throw new RecordNotFoundException(" does not exist for the given Id");
 		}
-	}		
-
+	}	
+	
+	
+    public Double sueldo(String idPago) throws RecordNotFoundException {
+		
+		Optional<RolDePago> rolpago = repo.findByIdPago(idPago);
+		if(rolpago.isPresent()) {
+			return rolpago.get().SueldoGanado(rolpago.get().getSueldo(), rolpago.get().getDiasLaborados());
+		} else {
+			throw new RecordNotFoundException(" does not exist for the given Id");
+		}
+	}
+	
+    
+    public Double horasExtras50(String idPago) throws RecordNotFoundException {
+		
+		Optional<RolDePago> rolpago = repo.findByIdPago(idPago);
+		if (rolpago.isPresent()) {
+			return rolpago.get().TotalHorasExtras(rolpago.get().getHorasExtras50(),rolpago.get().getHorasExtras100());
+		}else {
+			throw new RecordNotFoundException(" does not exist for the given Id");
+		}
+	}
+    
+    public Double totalAnual(String idPago) throws RecordNotFoundException {
+		
+		Optional<RolDePago> rolpago = repo.findByIdPago(idPago);
+		
+		if (rolpago.isPresent()) {
+			Double sueldo=rolpago.get().getSueldo();
+			Integer diasLaborados=rolpago.get().getDiasLaborados();
+			Integer horasExtras50=rolpago.get().getHorasExtras50();
+			Integer horasExtras100=rolpago.get().getHorasExtras100();
+			Double comision = rolpago.get().getComision();
+			Double bono = rolpago.get().getBono();
+			
+			return rolpago.get().TotalIngresos(sueldo,diasLaborados , horasExtras50, horasExtras100,comision,bono );
+		}else {
+			throw new RecordNotFoundException(" does not exist for the given Id");
+		}
+		
+		
+	}
+    
+    
+    public Double multa(String idPago) {
+		
+  		Optional<RolDePago> rolpago = repo.findByIdPago(idPago);
+  		
+  		Double anticipo=rolpago.get().getAnticipo();
+  		Double multa = rolpago.get().getMulta();
+  		Double descuento = rolpago.get().getDescuento();
+  		Double sueldo = rolpago.get().getSueldo();
+  		
+  		return rolpago.get().TotalDescuentos(anticipo, multa, sueldo, descuento);
+  	}
+    
+    public Double bono(String idPago) {
+		
+		Optional<RolDePago> rolpago = repo.findByIdPago(idPago);
+		
+		Double sueldo=rolpago.get().getSueldo();
+		Integer diasLaborados=rolpago.get().getDiasLaborados();
+		Integer horasExtras50=rolpago.get().getHorasExtras50();
+		Double anticipo=rolpago.get().getAnticipo();
+		Double multa = rolpago.get().getMulta();
+		Integer horasExtras100=rolpago.get().getHorasExtras100();
+		Double comision = rolpago.get().getComision();
+		Double bono = rolpago.get().getBono();
+		Double descuento = rolpago.get().getDescuento();
+		
+		return rolpago.get().TotalDelMes(sueldo,diasLaborados , horasExtras50,anticipo,multa, horasExtras100,comision,bono,descuento);
+	}
+    
 }

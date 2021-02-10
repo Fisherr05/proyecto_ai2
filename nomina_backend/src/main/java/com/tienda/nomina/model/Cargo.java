@@ -12,18 +12,19 @@ package com.tienda.nomina.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import lombok.Data;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Document (collection = "cargo")
 public class Cargo {
 	
 	@Id
 	private String idCargo;
 	
-	@Field
 	private String descripcion;
 	
 }

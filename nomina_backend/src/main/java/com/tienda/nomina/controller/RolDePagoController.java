@@ -64,4 +64,33 @@ public class RolDePagoController {
 		service.deleteRolDePagoByIdPago(idPago);
 		return HttpStatus.OK;
 	}
+	
+	
+	@GetMapping("/rolDePago/sueldo/{id}")
+	public Double getTotalSueldo(@PathVariable("id") String idRol) throws RecordNotFoundException {
+		return service.sueldo(idRol) ;
+	}
+	
+	@GetMapping("/rolDePago/horasExtras/{id}")
+	public Double getTotalHorasExtras(@PathVariable("id") String idRol) throws RecordNotFoundException {
+		return service.horasExtras50(idRol);
+	}
+	
+	@GetMapping("/rolDePago/totalIngresos/{id}")
+	public Double getTotalIngresos(@PathVariable("id") String idRol) throws RecordNotFoundException {
+		return service.totalAnual(idRol);
+	}
+	
+	@GetMapping("/rolDePago/totalDescuento/{id}")
+	public Double getTotalDescuentos(@PathVariable("id") String idRol) throws RecordNotFoundException {
+		return service.multa(idRol);
+	}
+	
+	@GetMapping("/rolDePago/total/{id}")
+	public Double getTotalMensual(@PathVariable("id") String idRol) throws RecordNotFoundException {
+		return service.bono(idRol);
+	}
+	
+	
+	
 }				

@@ -25,4 +25,6 @@ public interface AnticipoRepository extends MongoRepository<Anticipo, String> {
 	
 	void deleteByIdAnticipo(String idAnticipo);
 	
+	Optional <Double> total(String idAnticipo, String idPersonal);
+	
 }

@@ -26,7 +26,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+
+@CrossOrigin(origins= {"*"})
 @RestController
 @RequestMapping("/nomina")
 public class PersonalController {
@@ -50,7 +53,8 @@ public class PersonalController {
 	@PostMapping("/personal")
 	public ResponseEntity<Personal> createPersonal(@RequestBody Personal personal){
 		service.createPersonal(personal);
-		return new ResponseEntity<Personal>(personal, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<Personal>(personal
+				, HttpStatus.OK);
 	}
 
 	@PutMapping("/personal")

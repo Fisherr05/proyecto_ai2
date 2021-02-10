@@ -14,6 +14,7 @@ import com.tienda.nomina.exception.RecordNotFoundException;
 import com.tienda.nomina.model.Cargo;
 import com.tienda.nomina.repository.CargoRepository;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class CargoService {
 
 	@Autowired
 	CargoRepository repo;
+	
+	 
 
 	public List<Cargo> getAll(){
 		List<Cargo> cargoList = repo.findAll();

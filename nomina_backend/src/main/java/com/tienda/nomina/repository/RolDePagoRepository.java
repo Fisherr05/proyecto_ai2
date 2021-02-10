@@ -24,4 +24,12 @@ public interface RolDePagoRepository extends MongoRepository<RolDePago, String> 
 	
 	void deleteByIdPago(String idPago);
 	
+	Optional<Double> sueldo(String idPago);
+	
+	Optional<Double> horasExtras50(String idPago);
+	
+	Optional<Double> totalAnual(String idPago);
+	
+	Optional<Double> bono(String idPago);
+	
 }

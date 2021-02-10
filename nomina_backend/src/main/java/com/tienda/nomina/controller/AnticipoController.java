@@ -16,6 +16,7 @@ import com.tienda.nomina.service.AnticipoService;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,4 +65,10 @@ public class AnticipoController {
 		service.deleteAnticipoByIdAnticipo(idAnticipo);
 		return HttpStatus.OK;
 	}
+	
+	@GetMapping("/anticipo/total/{id}/cedula/{idPersonal}")
+	public Double getTotalByIdAnticipo(@PathVariable("id") String idAnticipo, @PathVariable("idPersonal") String idPersonal) throws RecordNotFoundException {
+		return service.total(idAnticipo,idPersonal);
+	}
+	
 }				
