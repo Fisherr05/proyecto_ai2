@@ -144,7 +144,7 @@ class Anticipo extends Component {
           footer={this.footer}
           onHide={() => this.setState({ visible: false })}
         >
-          <form id="anticipo-form">
+          <form id="personal-form">
             <br />
             <span className="p-float-label">
               <InputText 
@@ -154,7 +154,7 @@ class Anticipo extends Component {
                 onChange={(e) => {
                   let val = e.target.value;
                   this.setState((prevState) => {
-                    let personal = Object.assign({}, prevState.anticipo);
+                    let anticipo = Object.assign({}, prevState.anticipo);
                     anticipo.idAnticipo = val;
 
                     return { anticipo };
