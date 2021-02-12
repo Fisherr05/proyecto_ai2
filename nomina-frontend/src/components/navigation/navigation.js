@@ -30,8 +30,18 @@ const Navigation = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Pricing
+              <a className="nav-link" href="/rolDePago">
+                Rol de Pago
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/anticipo">
+                Anticipos
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/cargo">
+                Cargo
               </a>
             </li>
           </ul>

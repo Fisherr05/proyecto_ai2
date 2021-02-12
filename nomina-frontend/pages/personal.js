@@ -153,7 +153,7 @@ class Personal extends Component {
           <form id="personal-form">
             <br />
             <span className="p-float-label">
-              <InputText disabled
+              <InputText 
                 value={this.state.personal.cedulaPersonal}
                 style={{ width: "100%" }}
                 id="cedulaPersonal"
