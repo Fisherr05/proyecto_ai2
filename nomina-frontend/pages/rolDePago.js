@@ -29,16 +29,16 @@ class RolDePago extends Component {
       rolDePago: {
         idPago: null,
         fechaRolDePago: null,
-        sueldo: null,
-        horasExtras50: null,
-        diasLaborados: null,
-        horasExtras100: null,
-        bono: null,
-        anticipo: null,
-        descuento: null,
-        multa: null,
-        comision: null,
-        totalAnual: null,
+        sueldo: 0,
+        horasExtras50: 0,
+        diasLaborados: 0,
+        horasExtras100: 0,
+        bono: 0,
+        anticipo: 0,
+        descuento: 0,
+        multa: 0,
+        comision: 0,
+        totalAnual: 0,
       },
       selectedRolDePago: {},
     };
@@ -86,16 +86,16 @@ class RolDePago extends Component {
         rolDePago: {
           idPago: null,
           fechaRolDePago: null,
-          sueldo: null,
-          horasExtras50: null,
-          diasLaborados: null,
-          horasExtras100: null,
-          bono: null,
-          anticipo: null,
-          descuento: null,
-          multa: null,
-          comision: null,
-          totalAnual: null,
+          sueldo: 0,
+          horasExtras50: 0,
+          diasLaborados: 0,
+          horasExtras100: 0,
+          bono: 0,
+          anticipo: 0,
+          descuento: 0,
+          multa: 0,
+          comision: 0,
+          totalAnual: 0,
         },
       });
       this.toast.show({
@@ -169,25 +169,7 @@ class RolDePago extends Component {
           onHide={() => this.setState({ visible: false })}
         >
           <form id="rolDePago-form">
-            <br />
-            <span className="p-float-label">
-              <InputText 
-                value={this.state.rolDePago.idPago}
-                style={{ width: "100%" }}
-                id="idPago"
-                onChange={(e) => {
-                  let val = e.target.value;
-                  this.setState((prevState) => {
-                    let rolDePago = Object.assign({}, prevState.rolDePago);
-                    rolDePago.idPago = val;
-
-                    return { rolDePago };
-                  })}
-                }
-              />
-              <label htmlFor="idPago">ID</label>
-            </span>
-            <br />
+            <br /> 
             <span className="p-float-label">
               <InputText
                 value={this.state.rolDePago.fechaRolDePago}

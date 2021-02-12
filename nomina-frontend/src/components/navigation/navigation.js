@@ -30,19 +30,25 @@ const Navigation = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/rolDePago">
+              <Link href="/rolDePago">
+              <a className="nav-link">
                 Rol de Pago
               </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/anticipo">
+              <Link href="/anticipo">
+              <a className="nav-link">
                 Anticipos
               </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/cargo">
+              <Link href="/cargo">
+              <a className="nav-link">
                 Cargo
               </a>
+              </Link>
             </li>
           </ul>
         </div>
