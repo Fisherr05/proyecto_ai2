@@ -1,4 +1,5 @@
-import { Component } from "react";
+import ReactDOM from 'react-dom';
+import React, { Component } from "react";
 import { PersonalService } from "../src/service/PersonalService";
 import Container from "../src/components/container/container";
 import classNames from "classnames";
@@ -67,6 +68,7 @@ class Personal extends Component {
         <Button label="Guardar" icon="pi pi-check" onClick={this.save}></Button>
       </div>
     );
+
   }
 
   componentDidMount() {
@@ -113,11 +115,18 @@ class Personal extends Component {
         });
     }
   }
-
-  render() {
-    return (
-      <Container style={{ width: "80%", margin: "0 auto", marginTop: "20px" }}>
-        <Menubar model={this.items} />
+  render(){
+    const header = (
+      <div className="table-header">
+          <h5 className="p-m-0">Manage Products</h5>
+          <span className="p-input-icon-left">
+              <i className="pi pi-search" />
+              <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder="Search..." />
+          </span>
+      </div>
+  );
+    return(
+      <Container>
         <Toolbar
           className="p-mb-4"
           left={this.leftToolbarTemplate}
@@ -128,22 +137,26 @@ class Personal extends Component {
             value={this.state.personals}
             paginator={true} 
             rows="4"
+            header={header}>
             selectionMode="single"
             selection={this.state.selectedPersonal}
             onSelectionChange={(e) =>
               this.setState({ selectedPersonal: e.value })
             }
           >
-            <Column field="cedulaPersonal" header="Cedula"></Column>
-            <Column field="nombrePersonal" header="Nombre"></Column>
-            <Column field="apellidoPersonal" header="Apellido"></Column>
-            <Column field="fechaIngreso" header="Fecha de Ingreso"></Column>
-            <Column field="direccion" header="Direccion"></Column>
-            <Column field="telefono" header="Telefono"></Column>
+            <Column field="cedulaPersonal" header="Cédula" sortable></Column>
+            <Column field="nombrePersonal" header="Nombre" sortable></Column>
+            <Column field="apellidoPersonal" header="Apellido" sortable></Column>
+            <Column field="fechaIngreso" header="Fecha de Ingreso" sortable></Column>
+            <Column field="direccion" header="Direccion" sortable></Column>
+            <Column field="telefono" header="Telefono" sortable></Column>
           </DataTable>
         </Panel>
         <Dialog
           header="Agregar Personal"
+          paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} personals"
           visible={this.state.visible}
           style={{ width: "400px" }}
           modal={true}

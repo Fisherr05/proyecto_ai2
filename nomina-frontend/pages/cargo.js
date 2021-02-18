@@ -126,8 +126,8 @@ class Cargo extends Component {
               this.setState({ selectedCargo: e.value })
             }
           >
-            <Column field="idCargo" header="ID"></Column>
-            <Column field="descripcion" header="Descripcion"></Column>
+            <Column field="idCargo" header="ID" sortable></Column>
+            <Column field="descripcion" header="Descripcion" sortable></Column>
           </DataTable>
         </Panel>
         <Dialog

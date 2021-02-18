@@ -130,9 +130,9 @@ class Anticipo extends Component {
               this.setState({ selectedAnticipo: e.value })
             }
           >
-            <Column field="idAnticipo" header="ID"></Column>
-            <Column field="fechaAnticipo" header="Fecha"></Column>
-            <Column field="valorAnticipo" header="Valor"></Column>
+            <Column field="idAnticipo" header="ID" sortable></Column>
+            <Column field="fechaAnticipo" header="Fecha" sortable></Column>
+            <Column field="valorAnticipo" header="Valor" sortable></Column>
             <Column field="total" header="Total"></Column>
           </DataTable>
         </Panel>

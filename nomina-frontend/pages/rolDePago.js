@@ -146,18 +146,18 @@ class RolDePago extends Component {
               this.setState({ selectedRolDePago: e.value })
             }
           >
-            <Column field="idPago" header="ID"></Column>
-            <Column field="fechaRolDePago" header="Fecha"></Column>
-            <Column field="sueldo" header="Sueldo Base"></Column>
-            <Column field="horasExtras50" header="Horas extras al 50%"></Column>
-            <Column field="diasLaborados" header="Dias Laborados"></Column>
-            <Column field="horasExtras100" header="Horas extras al 100%"></Column>
-            <Column field="bono" header="Bono"></Column>
-            <Column field="anticipo" header="Anticipo"></Column>
-            <Column field="descuento" header="Descuento"></Column>
-            <Column field="multa" header="Multa"></Column>
-            <Column field="comision" header="Comision"></Column>
-            <Column field="totalAnual" header="Total"></Column>
+            <Column field="idPago" header="ID" sortable></Column>
+            <Column field="fechaRolDePago" header="Fecha" sortable></Column>
+            <Column field="sueldo" header="Sueldo Base" sortable></Column>
+            <Column field="horasExtras50" header="Horas extras al 50%" sortable></Column>
+            <Column field="diasLaborados" header="Dias Laborados" sortable></Column>
+            <Column field="horasExtras100" header="Horas extras al 100%" sortable></Column>
+            <Column field="bono" header="Bono" sortable></Column>
+            <Column field="anticipo" header="Anticipo" sortable></Column>
+            <Column field="descuento" header="Descuento" sortable></Column>
+            <Column field="multa" header="Multa" sortable></Column>
+            <Column field="comision" header="Comision" sortable></Column>
+            <Column field="totalAnual" header="Total" sortable></Column>
           </DataTable>
         </Panel>
         <Dialog
