@@ -17,6 +17,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Panel } from "primereact/panel";
 import { Menubar } from "primereact/menubar";
+import { locale, addLocale, updateLocaleOption, updateLocaleOptions, localeOption, localeOptions } from 'primereact/api';
 
 import "primereact/resources/themes/bootstrap4-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -120,7 +121,7 @@ class Personal extends Component {
 
   hideDialog() {
     this.setState({
-      visible:false,
+      visible: false,
       submitted: false,
       personalDialog: false
     });
@@ -194,13 +195,25 @@ class Personal extends Component {
   }
 
   deleteSelectedPersonals() {
-    let Personals = this.state.Personals.filter(val => !this.state.selectedPersonals.includes(val));
-    this.setState({
-      personals,
-      deletePersonalsDialog: false,
-      selectedPersonals: null
-    });
-    this.toast.show({ severity: 'success', summary: 'Successful', detail: 'Personals Deleted', life: 3000 });
+    let personals = this.state.personals.filter(val => !this.state.selectedPersonals.includes(val));
+    
+    this.personalService
+      .delete(this.state.personal.cedulaPersonal)
+      .then((data) => {
+        this.toast.show({
+          severity: "success",
+          summary: "Atención!",
+          detail: "Registros eliminados.",
+          life: 3000
+        });
+        this.personalService
+          .getAll()
+          .then((data) => this.setState({
+            personals,
+            deletePersonalsDialog: false,
+            selectedPersonals: null
+          }));
+      });
   }
 
   onCategoryChange(e) {
@@ -228,8 +241,7 @@ class Personal extends Component {
   leftToolbarTemplate() {
     return (
       <React.Fragment>
-        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={this.openNew} />
-        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={this.confirmDeleteSelected} disabled={!this.state.selectedPersonals || !this.state.selectedPersonals.length} />
+        <Button label="Nuevo" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={this.openNew} />
       </React.Fragment>
     )
   }
@@ -305,12 +317,14 @@ class Personal extends Component {
     }
   }
   render() {
+    const paginatorLeft = <Button type="button" icon="pi pi-refresh" className="p-button-text" />;
+    const paginatorRight = <Button type="button" icon="pi pi-cloud" className="p-button-text" />;
     const header = (
       <div className="table-header">
         <h5 className="p-m-0">Listado de Personal</h5>
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
-          <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.value })} placeholder="Buscar..." />
+          <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder="Buscar..." />
         </span>
       </div>
     );
@@ -340,33 +354,34 @@ class Personal extends Component {
           left={this.leftToolbarTemplate}
           right={this.rightToolbarTemplate}
         ></Toolbar>
-          <DataTable ref={(el) => this.dt = el} value={this.state.personals} selection={this.state.selectedPersonals} onSelectionChange={(e) => this.setState({ selectedPersonals: e.value })}
-            //value={this.state.personals}
-            //paginator={true}
-            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} personals"
-            globalFilter={this.state.globalFilter}
-            //rows="4"
-            header={header}
-          //selectionMode="single"
-          //selection={this.state.selectedPersonal}
-          //onSelectionChange={(e) =>
-          //this.setState({ selectedPersonal: e.value })
-          //}
-          >
-            <Column field="cedulaPersonal" header="Cédula" sortable></Column>
-            <Column field="nombrePersonal" header="Nombre" sortable></Column>
-            <Column field="apellidoPersonal" header="Apellido" sortable></Column>
-            <Column field="fechaIngreso" header="Fecha de Ingreso" sortable></Column>
-            <Column field="direccion" header="Direccion" sortable></Column>
-            <Column field="telefono" header="Telefono" sortable></Column>
-            <Column body={this.actionBodyTemplate}></Column>
-          </DataTable>
+        <DataTable 
+        ref={(el) => this.dt = el} 
+        value={this.state.personals} selection={this.state.selectedPersonals} onSelectionChange={(e) => this.setState({ selectedPersonals: e.value })}
+          paginator
+          //value={this.state.personals}
+          //paginator={true}
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" rows={5} rowsPerPageOptions={[5, 10, 25]}
+          //paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}
+          globalFilter={this.state.globalFilter}
+          //rows="4"
+          header={header}
+        //selectionMode="single"
+        //selection={this.state.selectedPersonal}
+        //onSelectionChange={(e) =>
+        //this.setState({ selectedPersonal: e.value })
+        //}
+        >
+          <Column field="cedulaPersonal" header="Cédula" sortable></Column>
+          <Column field="nombrePersonal" header="Nombre" sortable></Column>
+          <Column field="apellidoPersonal" header="Apellido" sortable></Column>
+          <Column field="fechaIngreso" header="Fecha de Ingreso" sortable></Column>
+          <Column field="direccion" header="Direccion" sortable></Column>
+          <Column field="telefono" header="Telefono" sortable></Column>
+          <Column body={this.actionBodyTemplate}></Column>
+        </DataTable>
         <Dialog
           header="Agregar Personal"
-          paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} personals"
           visible={this.state.visible}
           style={{ width: '450px' }}
           modal className="p-fluid"
