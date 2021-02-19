@@ -196,7 +196,7 @@ class Personal extends Component {
 
   deleteSelectedPersonals() {
     let personals = this.state.personals.filter(val => !this.state.selectedPersonals.includes(val));
-    
+
     this.personalService
       .delete(this.state.personal.cedulaPersonal)
       .then((data) => {
@@ -250,8 +250,8 @@ class Personal extends Component {
   rightToolbarTemplate() {
     return (
       <React.Fragment>
-        <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="p-mr-2 p-d-inline-block" />
-        <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={this.exportCSV} />
+        <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Importar" chooseLabel="Importar" className="p-mr-2 p-d-inline-block" />
+        <Button label="Exportar" icon="pi pi-upload" className="p-button-help" onClick={this.exportCSV} />
       </React.Fragment>
     )
   }
@@ -320,13 +320,18 @@ class Personal extends Component {
     const paginatorLeft = <Button type="button" icon="pi pi-refresh" className="p-button-text" />;
     const paginatorRight = <Button type="button" icon="pi pi-cloud" className="p-button-text" />;
     const header = (
-      <div className="table-header">
-        <h5 className="p-m-0">Listado de Personal</h5>
-        <span className="p-input-icon-left">
-          <i className="pi pi-search" />
-          <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder="Buscar..." />
-        </span>
+      <div className="table-header row">
+        <div className="col-md-8">
+          <h5 className="align-self-center">Listado de Personal</h5>
+        </div>
+        <div className="col-6 col-md-4">
+          <span className="p-input-icon-left float-right">
+            <i className="pi pi-search" />
+            <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder="Buscar..." />
+          </span>
+        </div>
       </div>
+
     );
     const personalDialogFooter = (
       <React.Fragment>
@@ -349,179 +354,181 @@ class Personal extends Component {
 
     return (
       <Container >
-        <Toolbar
-          className="p-mb-4"
-          left={this.leftToolbarTemplate}
-          right={this.rightToolbarTemplate}
-        ></Toolbar>
-        <DataTable 
-        ref={(el) => this.dt = el} 
-        value={this.state.personals} selection={this.state.selectedPersonals} onSelectionChange={(e) => this.setState({ selectedPersonals: e.value })}
-          paginator
-          //value={this.state.personals}
-          //paginator={true}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" rows={5} rowsPerPageOptions={[5, 10, 25]}
-          //paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}
-          globalFilter={this.state.globalFilter}
-          //rows="4"
-          header={header}
-        //selectionMode="single"
-        //selection={this.state.selectedPersonal}
-        //onSelectionChange={(e) =>
-        //this.setState({ selectedPersonal: e.value })
-        //}
-        >
-          <Column field="cedulaPersonal" header="Cédula" sortable></Column>
-          <Column field="nombrePersonal" header="Nombre" sortable></Column>
-          <Column field="apellidoPersonal" header="Apellido" sortable></Column>
-          <Column field="fechaIngreso" header="Fecha de Ingreso" sortable></Column>
-          <Column field="direccion" header="Direccion" sortable></Column>
-          <Column field="telefono" header="Telefono" sortable></Column>
-          <Column body={this.actionBodyTemplate}></Column>
-        </DataTable>
-        <Dialog
-          header="Agregar Personal"
-          visible={this.state.visible}
-          style={{ width: '450px' }}
-          modal className="p-fluid"
-          footer={this, personalDialogFooter}
-          onHide={() => this.setState({ visible: false })}
-          onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'}
-        >
-          <form id="personal-form">
-            <br />
-            <span className="p-float-label">
-              <InputText
-                value={this.state.personal.cedulaPersonal}
-                style={{ width: "100%" }}
-                id="cedulaPersonal"
-                onChange={(e) => {
-                  let val = e.target.value;
-                  this.setState((prevState) => {
-                    let personal = Object.assign({}, prevState.personal);
-                    personal.cedulaPersonal = val;
+        <div className="card">
+          <Toolbar
+            className="p-mb-4"
+            left={this.leftToolbarTemplate}
+            right={this.rightToolbarTemplate}
+          ></Toolbar>
+          <DataTable
+            ref={(el) => this.dt = el}
+            value={this.state.personals} selection={this.state.selectedPersonals} onSelectionChange={(e) => this.setState({ selectedPersonals: e.value })}
+            paginator
+            //value={this.state.personals}
+            //paginator={true}
+            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" rows={5} rowsPerPageOptions={[5, 10, 25]}
+            //paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}
+            globalFilter={this.state.globalFilter}
+            //rows="4"
+            header={header}
+          //selectionMode="single"
+          //selection={this.state.selectedPersonal}
+          //onSelectionChange={(e) =>
+          //this.setState({ selectedPersonal: e.value })
+          //}
+          >
+            <Column field="cedulaPersonal" header="Cédula" sortable></Column>
+            <Column field="nombrePersonal" header="Nombre" sortable></Column>
+            <Column field="apellidoPersonal" header="Apellido" sortable></Column>
+            <Column field="fechaIngreso" header="Fecha de Ingreso" sortable></Column>
+            <Column field="direccion" header="Direccion" sortable></Column>
+            <Column field="telefono" header="Telefono" sortable></Column>
+            <Column body={this.actionBodyTemplate}></Column>
+          </DataTable>
+          <Dialog
+            header="Agregar Personal"
+            visible={this.state.visible}
+            style={{ width: '450px' }}
+            modal className="p-fluid"
+            footer={this, personalDialogFooter}
+            onHide={() => this.setState({ visible: false })}
+            onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'}
+          >
+            <form id="personal-form">
+              <br />
+              <span className="p-float-label">
+                <InputText
+                  value={this.state.personal.cedulaPersonal}
+                  style={{ width: "100%" }}
+                  id="cedulaPersonal"
+                  onChange={(e) => {
+                    let val = e.target.value;
+                    this.setState((prevState) => {
+                      let personal = Object.assign({}, prevState.personal);
+                      personal.cedulaPersonal = val;
 
-                    return { personal };
-                  })
-                }
-                }
-              />
-              <label htmlFor="cedulaPersonal">Cedula</label>
-            </span>
-            <br />
-            <span className="p-float-label">
-              <InputText
-                value={this.state.personal.nombrePersonal}
-                style={{ width: "100%" }}
-                id="nombrePersonal"
-                onChange={(e) => {
-                  let val = e.target.value;
-                  this.setState((prevState) => {
-                    let personal = Object.assign({}, prevState.personal);
-                    personal.nombrePersonal = val;
+                      return { personal };
+                    })
+                  }
+                  }
+                />
+                <label htmlFor="cedulaPersonal">Cedula</label>
+              </span>
+              <br />
+              <span className="p-float-label">
+                <InputText
+                  value={this.state.personal.nombrePersonal}
+                  style={{ width: "100%" }}
+                  id="nombrePersonal"
+                  onChange={(e) => {
+                    let val = e.target.value;
+                    this.setState((prevState) => {
+                      let personal = Object.assign({}, prevState.personal);
+                      personal.nombrePersonal = val;
 
-                    return { personal };
-                  })
-                }
-                }
-              />
-              <label htmlFor="nombrePersonal">Nombre</label>
-            </span>
-            <br />
-            <span className="p-float-label">
-              <InputText
-                value={this.state.personal.apellidoPersonal}
-                style={{ width: "100%" }}
-                id="apellidoPersonal"
-                onChange={(e) => {
-                  let val = e.target.value;
-                  this.setState((prevState) => {
-                    let personal = Object.assign({}, prevState.personal);
-                    personal.apellidoPersonal = val;
+                      return { personal };
+                    })
+                  }
+                  }
+                />
+                <label htmlFor="nombrePersonal">Nombre</label>
+              </span>
+              <br />
+              <span className="p-float-label">
+                <InputText
+                  value={this.state.personal.apellidoPersonal}
+                  style={{ width: "100%" }}
+                  id="apellidoPersonal"
+                  onChange={(e) => {
+                    let val = e.target.value;
+                    this.setState((prevState) => {
+                      let personal = Object.assign({}, prevState.personal);
+                      personal.apellidoPersonal = val;
 
-                    return { personal };
-                  })
-                }
-                }
-              />
-              <label htmlFor="apellidoPersonal">Apellido</label>
-            </span>
-            <br />
-            <span className="p-float-label">
-              <InputText
-                value={this.state.personal.fechaIngreso}
-                style={{ width: "100%" }}
-                id="fechaIngreso"
-                onChange={(e) => {
-                  let val = e.target.value;
-                  this.setState((prevState) => {
-                    let personal = Object.assign({}, prevState.personal);
-                    personal.fechaIngreso = val;
+                      return { personal };
+                    })
+                  }
+                  }
+                />
+                <label htmlFor="apellidoPersonal">Apellido</label>
+              </span>
+              <br />
+              <span className="p-float-label">
+                <InputText
+                  value={this.state.personal.fechaIngreso}
+                  style={{ width: "100%" }}
+                  id="fechaIngreso"
+                  onChange={(e) => {
+                    let val = e.target.value;
+                    this.setState((prevState) => {
+                      let personal = Object.assign({}, prevState.personal);
+                      personal.fechaIngreso = val;
 
-                    return { personal };
-                  })
-                }
-                }
-              />
-              <label htmlFor="fechaIngreso">Fecha de Ingreso</label>
-            </span>
-            <br />
-            <span className="p-float-label">
-              <InputText
-                value={this.state.personal.direccion}
-                style={{ width: "100%" }}
-                id="direccion"
-                onChange={(e) => {
-                  let val = e.target.value;
-                  this.setState((prevState) => {
-                    let personal = Object.assign({}, prevState.personal);
-                    personal.direccion = val;
+                      return { personal };
+                    })
+                  }
+                  }
+                />
+                <label htmlFor="fechaIngreso">Fecha de Ingreso</label>
+              </span>
+              <br />
+              <span className="p-float-label">
+                <InputText
+                  value={this.state.personal.direccion}
+                  style={{ width: "100%" }}
+                  id="direccion"
+                  onChange={(e) => {
+                    let val = e.target.value;
+                    this.setState((prevState) => {
+                      let personal = Object.assign({}, prevState.personal);
+                      personal.direccion = val;
 
-                    return { personal };
-                  })
-                }
-                }
-              />
-              <label htmlFor="direccion">Direccion</label>
-            </span>
-            <br />
-            <span className="p-float-label">
-              <InputText
-                value={this.state.personal.telefono}
-                style={{ width: "100%" }}
-                id="telefono"
-                onChange={(e) => {
-                  let val = e.target.value;
-                  this.setState((prevState) => {
-                    let personal = Object.assign({}, prevState.personal);
-                    personal.telefono = val;
-                    return { personal };
-                  })
-                }
-                }
-              />
-              <label htmlFor="telefono">Teléfono</label>
-            </span>
-            <br />
-          </form>
-        </Dialog>
+                      return { personal };
+                    })
+                  }
+                  }
+                />
+                <label htmlFor="direccion">Direccion</label>
+              </span>
+              <br />
+              <span className="p-float-label">
+                <InputText
+                  value={this.state.personal.telefono}
+                  style={{ width: "100%" }}
+                  id="telefono"
+                  onChange={(e) => {
+                    let val = e.target.value;
+                    this.setState((prevState) => {
+                      let personal = Object.assign({}, prevState.personal);
+                      personal.telefono = val;
+                      return { personal };
+                    })
+                  }
+                  }
+                />
+                <label htmlFor="telefono">Teléfono</label>
+              </span>
+              <br />
+            </form>
+          </Dialog>
 
-        <Toast ref={(el) => (this.toast = el)} />
+          <Toast ref={(el) => (this.toast = el)} />
 
-        <Dialog visible={this.state.deletePersonalDialog} style={{ width: '450px' }} header="Confirm" modal footer={deletePersonalDialogFooter} onHide={this.hideDeletePersonalDialog}>
-          <div className="confirmation-content">
-            <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem' }} />
-            {this.state.personal && <span>¿Realmente desea eliminar el registro? <b>{this.state.personal.name}</b>?</span>}
-          </div>
-        </Dialog>
+          <Dialog visible={this.state.deletePersonalDialog} style={{ width: '450px' }} header="Confirm" modal footer={deletePersonalDialogFooter} onHide={this.hideDeletePersonalDialog}>
+            <div className="confirmation-content">
+              <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem' }} />
+              {this.state.personal && <span>¿Realmente desea eliminar el registro? <b>{this.state.personal.name}</b>?</span>}
+            </div>
+          </Dialog>
 
-        <Dialog visible={this.state.deletePersonalsDialog} style={{ width: '450px' }} header="Confirm" modal footer={deletePersonalsDialogFooter} onHide={this.hideDeletePersonalsDialog}>
-          <div className="confirmation-content">
-            <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem' }} />
-            {this.state.personal && <span>¿Realmente desea eliminar los registros?</span>}
-          </div>
-        </Dialog>
+          <Dialog visible={this.state.deletePersonalsDialog} style={{ width: '450px' }} header="Confirm" modal footer={deletePersonalsDialogFooter} onHide={this.hideDeletePersonalsDialog}>
+            <div className="confirmation-content">
+              <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem' }} />
+              {this.state.personal && <span>¿Realmente desea eliminar los registros?</span>}
+            </div>
+          </Dialog>
+        </div>
 
       </Container>
     );
