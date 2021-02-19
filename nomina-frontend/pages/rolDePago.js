@@ -246,7 +246,7 @@ class RolDePago extends Component {
   leftToolbarTemplate() {
     return (
       <React.Fragment>
-        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={this.openNew} />
+        <Button label="Nuevo" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={this.openNew} />
       </React.Fragment>
     )
   }
@@ -326,12 +326,16 @@ class RolDePago extends Component {
     const paginatorLeft = <Button type="button" icon="pi pi-refresh" className="p-button-text" />;
     const paginatorRight = <Button type="button" icon="pi pi-cloud" className="p-button-text" />;
     const header = (
-      <div className="table-header">
-        <h5 className="p-m-0">Listado de Roles de Pagos</h5>
-        <span className="p-input-icon-left">
+      <div className="table-header row">
+        <div className="col-md-8">
+          <h5 className="p-m-0">Listado de Roles de Pagos</h5>
+        </div>
+        <div className="col-6 col-md-4">
+        <span className="p-input-icon-left float-right">
           <i className="pi pi-search" />
-          <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.value })} placeholder="Buscar..." />
+          <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder="Buscar..." />
         </span>
+        </div>
       </div>
     );
     const rolDePagoDialogFooter = (
@@ -357,6 +361,7 @@ class RolDePago extends Component {
 
     return (
       <Container >
+        <div className="card">
         <Toolbar
           className="p-mb-4"
           left={this.leftToolbarTemplate}
@@ -371,7 +376,6 @@ class RolDePago extends Component {
              globalFilter={this.state.globalFilter}
              header={header}
           >
-            <Column field="idPago" header="ID" sortable></Column>
             <Column field="fechaRolDePago" header="Fecha" sortable></Column>
             <Column field="sueldo" header="Sueldo Base" sortable></Column>
             <Column field="horasExtras50" header="Horas extras al 50%" sortable></Column>
@@ -623,6 +627,7 @@ class RolDePago extends Component {
             {this.state.rolDePago && <span>¿Realmente desea eliminar los registros?</span>}
           </div>
         </Dialog>
+        </div>
       </Container>
     );
   }
