@@ -255,8 +255,8 @@ class RolDePago extends Component {
   rightToolbarTemplate() {
     return (
       <React.Fragment>
-        <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="p-mr-2 p-d-inline-block" />
-        <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={this.exportCSV} />
+        <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Importar" chooseLabel="Importar" className="p-mr-2 p-d-inline-block" />
+        <Button label="Exportar" icon="pi pi-upload" className="p-button-help" onClick={this.exportCSV} />
       </React.Fragment>
     )
   }
@@ -367,7 +367,7 @@ class RolDePago extends Component {
             value={this.state.rolDePagos} selection={this.state.selectedRolDePagos} onSelectionChange={(e) => this.setState({ selectedRolDePagos: e.value })}
             paginator
              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} rolDePagos"
+             currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" rows={5} rowsPerPageOptions={[5, 10, 25]}
              globalFilter={this.state.globalFilter}
              header={header}
           >
