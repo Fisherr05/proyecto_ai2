@@ -17,6 +17,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Panel } from "primereact/panel";
 import { Menubar } from "primereact/menubar";
+import { locale, addLocale, updateLocaleOption, updateLocaleOptions, localeOption, localeOptions } from 'primereact/api';
 
 import "primereact/resources/themes/bootstrap4-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -54,7 +55,7 @@ class RolDePago extends Component {
       globalFilter: null
     };
 
-    this.rolDePagoService = new RolDePago();
+    this.rolDePagoService = new RolDePagoService();
     this.leftToolbarTemplate = this.leftToolbarTemplate.bind(this);
     this.rightToolbarTemplate = this.rightToolbarTemplate.bind(this);
     this.imageBodyTemplate = this.imageBodyTemplate.bind(this);
@@ -152,15 +153,15 @@ class RolDePago extends Component {
   confirmDeleteRolDePago(rolDePago) {
     this.setState({
       rolDePago,
-      deleterolDePagoDialog: true
+      deleteRolDePagoDialog: true
     });
   }
 
   deleteRolDePago() {
     let rolDePagos = this.state.rolDePagos.filter(val => val.id !== this.state.rolDePago.idPago);
 
-    this.rolDePagosService
-      .delete(this.state.rolDePagos.idPago)
+    this.rolDePagoService
+      .delete(this.state.rolDePago.idPago)
       .then((data) => {
         this.toast.show({
           severity: "success",
@@ -168,12 +169,12 @@ class RolDePago extends Component {
           detail: "Se eliminó el registro correctamente.",
           life: 3000
         });
-        this.rolDePagosService
+        this.rolDePagoService
           .getAll()
           .then((data) => this.setState({
             rolDePagos: data,
             deleteRolDePagoDialog: false,
-            rolDePagos: this.emptyRolDePago
+            rolDePago: this.emptyRolDePago
           }));
       });
 
@@ -200,13 +201,24 @@ class RolDePago extends Component {
   }
 
   deleteSelectedRolDePagos() {
-    let RolDePagos = this.state.RolDePagos.filter(val => !this.state.selectedRolDePagos.includes(val));
-    this.setState({
-      rolDePagos,
-      deleteRolDePagosDialog: false,
-      selectedRolDePagos: null
-    });
-    this.toast.show({ severity: 'success', summary: 'Successful', detail: 'RolDePagos Deleted', life: 3000 });
+    let rolDePagos = this.state.rolDePagos.filter(val => !this.state.selectedRolDePagos.includes(val));
+    this.rolDePagoService
+      .delete(this.state.rolDePagos.idPago)
+      .then((data) => {
+        this.toast.show({
+          severity: "success",
+          summary: "Atención!",
+          detail: "Registros eliminados.",
+          life: 3000
+        });
+        this.rolDePagoService
+          .getAll()
+          .then((data) => this.setState({
+            rolDePagos,
+            deleteRolDePagosDialog: false,
+            selectedRolDePagos: null
+          }));
+      });
   }
 
   onCategoryChange(e) {
@@ -235,7 +247,6 @@ class RolDePago extends Component {
     return (
       <React.Fragment>
         <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={this.openNew} />
-        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={this.confirmDeleteSelected} disabled={!this.state.selectedRolDePagos || !this.state.selectedRolDePagos.length} />
       </React.Fragment>
     )
   }
@@ -312,6 +323,8 @@ class RolDePago extends Component {
   }
 
   render() {
+    const paginatorLeft = <Button type="button" icon="pi pi-refresh" className="p-button-text" />;
+    const paginatorRight = <Button type="button" icon="pi pi-cloud" className="p-button-text" />;
     const header = (
       <div className="table-header">
         <h5 className="p-m-0">Listado de Roles de Pagos</h5>
@@ -350,6 +363,9 @@ class RolDePago extends Component {
           right={this.rightToolbarTemplate}
         ></Toolbar>
           <DataTable
+            ref={(el) => this.dt = el} 
+            value={this.state.rolDePagos} selection={this.state.selectedRolDePagos} onSelectionChange={(e) => this.setState({ selectedRolDePagos: e.value })}
+            paginator
              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} rolDePagos"
              globalFilter={this.state.globalFilter}
@@ -372,9 +388,6 @@ class RolDePago extends Component {
 
         <Dialog
           header="Agregar Nuevo Registro"
-          paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} rolDePagos"
           visible={this.state.visible}
           style={{ width: '450px' }}
           modal className="p-fluid"
@@ -383,6 +396,24 @@ class RolDePago extends Component {
           onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'}
         >
           <form id="rolDePago-form">
+            <br /> 
+            <span className="p-float-label">
+              <InputText
+                value={this.state.rolDePago.idPago}
+                style={{ width: "100%" }}
+                id="idPago"
+                onChange={(e) => {
+                  let val = e.target.value;
+                  this.setState((prevState) => {
+                    let rolDePago = Object.assign({}, prevState.rolDePago);
+                    rolDePago.idPago = val;
+
+                    return { rolDePago };
+                  })}
+                }
+              />
+              <label htmlFor="idPago">ID</label>
+            </span>
             <br /> 
             <span className="p-float-label">
               <InputText
