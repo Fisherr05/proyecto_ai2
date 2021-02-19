@@ -1,4 +1,5 @@
-import { Component } from "react";
+import ReactDOM from 'react-dom';
+import React, { Component } from "react";
 import { RolDePagoService } from "../src/service/RolDePagoService";
 import Container from "../src/components/container/container";
 import classNames from "classnames";
@@ -22,26 +23,61 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
 class RolDePago extends Component {
-  constructor() {
-    super();
+  
+  emptyRolDePago = {
+    idPago: null,
+    fechaRolDePago: null,
+    sueldo: null,
+    horasExtras50: null,
+    diasLaborados: null,
+    horasExtras100: null,
+    bono: null,
+    anticipo: null,
+    descuento: null,
+    multa: null,
+    comision: null,
+    totalAnual: null,
+  };
+  
+  constructor(props) {
+    super(props);
+
     this.state = {
       visible: false,
-      rolDePago: {
-        idPago: null,
-        fechaRolDePago: null,
-        sueldo: 0,
-        horasExtras50: 0,
-        diasLaborados: 0,
-        horasExtras100: 0,
-        bono: 0,
-        anticipo: 0,
-        descuento: 0,
-        multa: 0,
-        comision: 0,
-        totalAnual: 0,
-      },
-      selectedRolDePago: {},
+      rolDePagos: null,
+      rolDialog: false,
+      deleteRolDePagoDialog: false,
+      deleteRolDePagosDialog: false,
+      rolDePago: this.emptyRolDePago,
+      selectedRolDePagos: null,
+      submitted: false,
+      globalFilter: null
     };
+
+    this.rolDePagoService = new RolDePago();
+    this.leftToolbarTemplate = this.leftToolbarTemplate.bind(this);
+    this.rightToolbarTemplate = this.rightToolbarTemplate.bind(this);
+    this.imageBodyTemplate = this.imageBodyTemplate.bind(this);
+    this.priceBodyTemplate = this.priceBodyTemplate.bind(this);
+    this.ratingBodyTemplate = this.ratingBodyTemplate.bind(this);
+    this.statusBodyTemplate = this.statusBodyTemplate.bind(this);
+    this.actionBodyTemplate = this.actionBodyTemplate.bind(this);
+
+    this.openNew = this.openNew.bind(this);
+    this.hideDialog = this.hideDialog.bind(this);
+    //this.saveRolDePago = this.saveRolDePago.bind(this);
+    this.editRolDePago = this.editRolDePago.bind(this);
+    this.confirmDeleteRolDePago = this.confirmDeleteRolDePago.bind(this);
+    this.deleteRolDePago = this.deleteRolDePago.bind(this);
+    this.exportCSV = this.exportCSV.bind(this);
+    this.confirmDeleteSelected = this.confirmDeleteSelected.bind(this);
+    this.deleteSelectedRolDePagos = this.deleteSelectedRolDePagos.bind(this);
+    this.onCategoryChange = this.onCategoryChange.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onInputNumberChange = this.onInputNumberChange.bind(this);
+    this.hideDeleteRolDePagoDialog = this.hideDeleteRolDePagoDialog.bind(this);
+    this.hideDeleteRolDePagosDialog = this.hideDeleteRolDePagosDialog.bind(this);
+
     this.items = [
       {
         label: "Nuevo",
@@ -79,24 +115,173 @@ class RolDePago extends Component {
     this.rolDePagoService.getAll().then(data => this.setState({rolDePagos: data}))
   }
 
+  openNew() {
+    this.setState({
+      visible: true,
+      rolDePago: this.emptyRolDePago,
+      submitted: false,
+      rolDePagoDialog: true
+    });
+  }
+
+  hideDialog() {
+    this.setState({
+      visible:false,
+      submitted: false,
+      rolDePagoDialog: false
+    });
+  }
+
+  hideDeleteRolDePagoDialog() {
+    this.setState({ deleteRolDePagoDialog: false });
+  }
+
+  hideDeleteRolDePagosDialog() {
+    this.setState({ deleteRolDePagosDialog: false });
+  }
+
+
+  editRolDePago(rolDePago) {
+    this.setState({
+      visible: true,
+      rolDePago: { ...rolDePago },
+      rolDePagoDialog: true
+    });
+  }
+
+  confirmDeleteRolDePago(rolDePago) {
+    this.setState({
+      rolDePago,
+      deleterolDePagoDialog: true
+    });
+  }
+
+  deleteRolDePago() {
+    let rolDePagos = this.state.rolDePagos.filter(val => val.id !== this.state.rolDePago.idPago);
+
+    this.rolDePagosService
+      .delete(this.state.rolDePagos.idPago)
+      .then((data) => {
+        this.toast.show({
+          severity: "success",
+          summary: "Atención!",
+          detail: "Se eliminó el registro correctamente.",
+          life: 3000
+        });
+        this.rolDePagosService
+          .getAll()
+          .then((data) => this.setState({
+            rolDePagos: data,
+            deleteRolDePagoDialog: false,
+            rolDePagos: this.emptyRolDePago
+          }));
+      });
+
+  }
+
+  findIndexById(id) {
+    let index = -1;
+    for (let i = 0; i < this.state.rolDePagos.length; i++) {
+      if (this.state.rolDePagos[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+
+    return index;
+  }
+
+  exportCSV() {
+    this.dt.exportCSV();
+  }
+
+  confirmDeleteSelected() {
+    this.setState({ deleteRolDePagosDialog: true });
+  }
+
+  deleteSelectedRolDePagos() {
+    let RolDePagos = this.state.RolDePagos.filter(val => !this.state.selectedRolDePagos.includes(val));
+    this.setState({
+      rolDePagos,
+      deleteRolDePagosDialog: false,
+      selectedRolDePagos: null
+    });
+    this.toast.show({ severity: 'success', summary: 'Successful', detail: 'RolDePagos Deleted', life: 3000 });
+  }
+
+  onCategoryChange(e) {
+    let rolDePago = { ...this.state.rolDePago };
+    rolDePago['category'] = e.value;
+    this.setState({ rolDePago });
+  }
+
+  onInputChange(e, name) {
+    const val = (e.target && e.target.value) || '';
+    let rolDePago = { ...this.state.rolDePago };
+    rolDePago[`${name}`] = val;
+
+    this.setState({ rolDePago });
+  }
+
+  onInputNumberChange(e, name) {
+    const val = e.value || 0;
+    let rolDePago = { ...this.state.rolDePago };
+    rolDePago[`${name}`] = val;
+
+    this.setState({ rolDePago });
+  }
+
+  leftToolbarTemplate() {
+    return (
+      <React.Fragment>
+        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={this.openNew} />
+        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={this.confirmDeleteSelected} disabled={!this.state.selectedRolDePagos || !this.state.selectedRolDePagos.length} />
+      </React.Fragment>
+    )
+  }
+
+
+  rightToolbarTemplate() {
+    return (
+      <React.Fragment>
+        <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="p-mr-2 p-d-inline-block" />
+        <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={this.exportCSV} />
+      </React.Fragment>
+    )
+  }
+
+  imageBodyTemplate(rowData) {
+    return <img src={`showcase/demo/images/product/${rowData.image}`} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} alt={rowData.image} className="product-image" />
+  }
+
+  priceBodyTemplate(rowData) {
+    return this.formatCurrency(rowData.price);
+  }
+
+  ratingBodyTemplate(rowData) {
+    return <Rating value={rowData.rating} readOnly cancel={false} />;
+  }
+
+  statusBodyTemplate(rowData) {
+    return <span className={`product-badge status-${rowData.inventoryStatus.toLowerCase()}`}>{rowData.inventoryStatus}</span>;
+  }
+
+  actionBodyTemplate(rowData) {
+    return (
+      <React.Fragment>
+        <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => this.editRolDePago(rowData)} />
+        <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => this.confirmDeleteRolDePago(rowData)} />
+      </React.Fragment>
+    );
+  }
+
+
   save() {
     this.rolDePagoService.save(this.state.rolDePago).then((data) => {
       this.setState({
         visible: false,
-        rolDePago: {
-          idPago: null,
-          fechaRolDePago: null,
-          sueldo: 0,
-          horasExtras50: 0,
-          diasLaborados: 0,
-          horasExtras100: 0,
-          bono: 0,
-          anticipo: 0,
-          descuento: 0,
-          multa: 0,
-          comision: 0,
-          totalAnual: 0,
-        },
+        rolDePago: this.emptyRolDePago,
+        rolDePagoDialog:true
       });
       this.toast.show({
         severity: "success",
@@ -127,24 +312,48 @@ class RolDePago extends Component {
   }
 
   render() {
+    const header = (
+      <div className="table-header">
+        <h5 className="p-m-0">Listado de Roles de Pagos</h5>
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.value })} placeholder="Buscar..." />
+        </span>
+      </div>
+    );
+    const rolDePagoDialogFooter = (
+      <React.Fragment>
+        <Button label="Guardar" icon="pi pi-check" className="p-button-text" onClick={this.save} />
+        <Button label="Cancelar" icon="pi pi-times" className="p-button-text" onClick={this.hideDialog} />
+      </React.Fragment>
+    );
+    const deleteRolDePagoDialogFooter = (
+      <React.Fragment>
+        <Button label="Si" icon="pi pi-check" className="p-button-text" onClick={this.deleteRolDePago} />
+        <Button label="No" icon="pi pi-times" className="p-button-text" onClick={this.hideDeleteRolDePagoDialog} />
+      </React.Fragment>
+    );
+    const deleteRolDePagosDialogFooter = (
+      <React.Fragment>
+        <Button label="Si" icon="pi pi-check" className="p-button-text" onClick={this.deleteSelectedRolDePagos} />
+        <Button label="No" icon="pi pi-times" className="p-button-text" onClick={this.hideDeleteRolDePagosDialog} />
+      </React.Fragment>
+    );
+
+
+
     return (
-      <Container style={{ width: "80%", margin: "0 auto", marginTop: "20px" }}>
-        <Menubar model={this.items} />
+      <Container >
         <Toolbar
           className="p-mb-4"
           left={this.leftToolbarTemplate}
           right={this.rightToolbarTemplate}
         ></Toolbar>
-        <Panel header="Listado de Rol de Pagos">
           <DataTable
-            value={this.state.rolDePagos}
-            paginator={true} 
-            rows="4"
-            selectionMode="single"
-            selection={this.state.selectedRolDePago}
-            onSelectionChange={(e) =>
-              this.setState({ selectedRolDePago: e.value })
-            }
+             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} rolDePagos"
+             globalFilter={this.state.globalFilter}
+             header={header}
           >
             <Column field="idPago" header="ID" sortable></Column>
             <Column field="fechaRolDePago" header="Fecha" sortable></Column>
@@ -158,15 +367,20 @@ class RolDePago extends Component {
             <Column field="multa" header="Multa" sortable></Column>
             <Column field="comision" header="Comision" sortable></Column>
             <Column field="totalAnual" header="Total" sortable></Column>
+            <Column body={this.actionBodyTemplate}></Column>
           </DataTable>
-        </Panel>
+
         <Dialog
           header="Agregar Nuevo Registro"
+          paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} rolDePagos"
           visible={this.state.visible}
-          style={{ width: "400px" }}
-          modal={true}
-          footer={this.footer}
+          style={{ width: '450px' }}
+          modal className="p-fluid"
+          footer={this, rolDePagoDialogFooter}
           onHide={() => this.setState({ visible: false })}
+          onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'}
         >
           <form id="rolDePago-form">
             <br /> 
@@ -364,6 +578,20 @@ class RolDePago extends Component {
           </form>
         </Dialog>
         <Toast ref={(el) => (this.toast = el)} />
+
+        <Dialog visible={this.state.deleteRolDePagoDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteRolDePagoDialogFooter} onHide={this.hideDeleteRolDePagoDialog}>
+          <div className="confirmation-content">
+            <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem' }} />
+            {this.state.rolDePago && <span>¿Realmente desea eliminar el registro? <b>{this.state.rolDePago.name}</b>?</span>}
+          </div>
+        </Dialog>
+
+        <Dialog visible={this.state.deleteRolDePagosDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteRolDePagosDialogFooter} onHide={this.hideDeleteRolDePagosDialog}>
+          <div className="confirmation-content">
+            <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem' }} />
+            {this.state.rolDePago && <span>¿Realmente desea eliminar los registros?</span>}
+          </div>
+        </Dialog>
       </Container>
     );
   }
@@ -371,22 +599,9 @@ class RolDePago extends Component {
   showSaveDialog() {
     this.setState({
       visible: true,
-      rolDePago: {
-        idPago: null,
-        fechaRolDePago: null,
-        sueldo: null,
-        horasExtras50: null,
-        diasLaborados: null,
-        horasExtras100: null,
-        bono: null,
-        anticipo: null,
-        descuento: null,
-        multa: null,
-        comision: null,
-        totalAnual: null,
-      }
+      rolDePago: this.emptyRolDePago,
     });
-    //document.getElementById('personal-form').reset();
+    document.getElementById('rolDePago-form').reset();
   }
 
   showEditDialog() {
