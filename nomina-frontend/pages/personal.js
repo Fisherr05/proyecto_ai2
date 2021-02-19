@@ -126,7 +126,8 @@ class Personal extends Component {
       </div>
   );
     return(
-      <Container>
+      <Container   style={{ width: "80%", margin: "0 auto", marginTop: "20px" }}>
+        <Menubar model={this.items} />
         <Toolbar
           className="p-mb-4"
           left={this.leftToolbarTemplate}
@@ -137,7 +138,7 @@ class Personal extends Component {
             value={this.state.personals}
             paginator={true} 
             rows="4"
-            header={header}>
+            header={header}
             selectionMode="single"
             selection={this.state.selectedPersonal}
             onSelectionChange={(e) =>
